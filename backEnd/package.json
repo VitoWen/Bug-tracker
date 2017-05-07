@@ -1,0 +1,18 @@
+{
+  "name": "leave-system-be",
+  "version": "1.0.0",
+  "description": "",
+  "author": "VitoWen",
+  "license": "MIT",
+  "dependencies": {
+    "async": "^2.0.1",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "mongodb": "^2.2.8",
+    "node-uuid": "^1.4.7",
+    "sugar": "^2.0.1"
+  },
+  "devDependencies": {
+    "mongoose": "^4.6.0"
+  }
+}
