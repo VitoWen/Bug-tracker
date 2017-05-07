@@ -1,0 +1,114 @@
+<form class="uk-form uk-form-horizontal bug-report-space" ng-submit="submit($event)">
+    <div class="uk-form-row">
+        <div class="uk-grid">
+            <div class="uk-width-1-2">
+                <label class="uk-form-label">Name: </label>
+                <div class="uk-form-controls">
+                    <div class="panel info-panel">{{userInfo.name}}</div>
+                </div>
+            </div>
+            <div class="uk-width-1-2">
+                <label class="uk-form-label">Employee No.: </label>
+                <div class="uk-form-controls">
+                    <div class="panel info-panel">{{userInfo.id}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-form-row">
+        <div class="uk-grid">
+            <div class="uk-width-1-2">
+                <label class="uk-form-label">Department: </label>
+                <div class="uk-form-controls">
+                    <div class="panel info-panel">{{userInfo.department}}</div>
+                </div>
+            </div>
+            <div class="uk-width-1-2">
+                <label class="uk-form-label">Title: </label>
+                <div class="uk-form-controls">
+                    <div class="panel info-panel">{{userInfo.title}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-form-row">
+        <div class="uk-grid">
+            <div class="uk-width-1-2">
+                <label class="uk-form-label">
+                    <label class="red-start">*</label>Severity:
+                </label>
+                <div class="uk-form-controls">
+                    <!-- <div class="panel click-panel"></div> -->
+                    <input type="text" class="uk-text panel click-panel" ng-model="selectedSeverity" name="tracker[selectedSeverity]" readonly>
+                    <div class="uk-button-dropdown down-btn" ng-click="toggleList($event, 'severityType')" data-uk-dropdown="{pos:'bottom-center'}">
+                        <a class="uk-icon-caret-down icon-down"></a>
+                        <div ng-class="{'uk-open': listFlag.severityType}">
+                            <div class="dropdown-space uk-dropdown uk-dropdown-bottom">
+                                <ul>
+                                    <li class="item" ng-repeat="severity in severityList">
+                                        <div ng-click="setSeverityType($event, severity)">{{severity}}</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <a ng-if="warningIcon.severityType" href="" class="uk-icon-exclamation warning"></a>
+                </div>
+            </div>
+            <div class="uk-width-1-2">
+                <label class="uk-form-label">
+                    <label class="red-start">*</label>Priority:
+                </label>
+                <div class="uk-form-controls">
+                    <!-- <div class="panel click-panel"></div> -->
+                    <input type="text" class="uk-text panel click-panel" ng-model="selectedPriority" name="tracker[selectedPriority]" readonly>
+                    <div class="uk-button-dropdown down-btn" ng-click="toggleList($event, 'priorityType')" data-uk-dropdown="{pos:'bottom-center'}">
+                        <a class="uk-icon-caret-down icon-down"></a>
+                        <div ng-class="{'uk-open': listFlag.priorityType}">
+                            <div class="dropdown-space uk-dropdown uk-dropdown-bottom">
+                                <ul>
+                                    <li class="item" ng-repeat="priority in priorityList">
+                                        <div ng-click="setPriority($event, priority)">{{priority}}</dov>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <a ng-if="warningIcon.priorityType" href="" class="uk-icon-exclamation warning"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-form-row">
+        <div class="uk-grid">
+            <div class="uk-width-1-2">
+                <label class="uk-form-label">
+                    <label class="red-start">*</label>Description:
+                </label>
+                <div class="uk-form-controls">
+                    <textarea class="uk-width-1-1" ng-model="desc" name="tracker[desc]" ng-focus="warningIcon.desc = false"></textarea>
+                    <a ng-if="warningIcon.desc" href="" class="uk-icon-exclamation warning"></a>
+                </div>
+            </div>
+            <div class="uk-width-1-2">
+                <label class="uk-form-label">
+                    <label class="red-start">*</label>Summary:
+                </label>
+                <div class="uk-form-controls">
+                    <textarea class="uk-width-1-1" ng-model="summary" name="tracker[summary]" ng-focus="warningIcon.summary = false"></textarea>
+                    <a ng-if="warningIcon.summary" href="" class="uk-icon-exclamation warning"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-form-row uk-position-relative">
+        <button class="uk-button uk-position-bottom-left">Submit</button>
+        <div ng-if="submited && createSuccess" class="uk-icon-check"></div>
+        <div ng-if="submited && createFail" class="uk-icon-warning"></div>
+    </div>
+</form>
+
