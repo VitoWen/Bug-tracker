@@ -18,7 +18,12 @@ bugTrackerApp.factory('apiHelper', ['$timeout', '$q', function($timeout, $q) {
                         if (data.res.length > 1) {
                             deferred.resolve(data.res);
                         } else {
-                           deferred.resolve(data.res[0]);
+                            if (Object.prototype.toString.call(data.res) === '[object Array]') {
+                                deferred.resolve(data.res[0]);
+                            } else {
+                                deferred.resolve(data.res);
+                            }
+
                         }
                     }
 

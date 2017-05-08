@@ -20,16 +20,10 @@
 
         <div class="uk-form-row">
             <div class="uk-grid">
-                <div ng-if="userType==='rd'" class="uk-width-1-3">
+                <div class="uk-width-1-3">
                     <label class="uk-form-label">Reporter: </label>
                     <div class="uk-form-controls">
                         <div class="panel info-panel">{{bug.reporter_name}}</div>
-                    </div>
-                </div>
-                <div ng-if="userType==='qa'" class="uk-width-1-3">
-                    <label class="uk-form-label">Owner: </label>
-                    <div class="uk-form-controls">
-                        <div class="panel info-panel">{{bug.owner}}</div>
                     </div>
                 </div>
                 <div class="uk-width-1-3">
@@ -62,23 +56,6 @@
                     <div ng-if="!bugItemEditModeFlag[$index]" class="uk-form-controls">
                         <div class="panel info-panel">{{bug.severity}}</div>
                     </div>
-                    <div ng-if="bugItemEditModeFlag[$index]" class="uk-form-controls">
-                        <!-- <div class="panel click-panel"></div> -->
-                        <input type="text" class="uk-text panel click-panel" ng-model="bug.severity" name="tracker[selectedSeverity]" readonly>
-                        <div class="uk-button-dropdown down-btn" ng-click="toggleList($event, 'severityType')" data-uk-dropdown="{pos:'bottom-center'}">
-                            <a class="uk-icon-caret-down icon-down"></a>
-                            <div ng-class="{'uk-open': listFlag.severityType}">
-                                <div class="dropdown-space uk-dropdown uk-dropdown-bottom">
-                                    <ul>
-                                        <li class="item" ng-repeat="severity in severityList">
-                                            <div ng-click="setSeverityType($event, severity, bug.id)">{{severity}}</div>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <a ng-if="warningIcon.severityType" href="" class="uk-icon-exclamation warning"></a>
-                    </div>
                 </div>
                 <div class="uk-width-1-3">
                     <label class="uk-form-label">
@@ -86,22 +63,6 @@
                     </label>
                     <div ng-if="!bugItemEditModeFlag[$index]" class="uk-form-controls">
                         <div class="panel info-panel">{{bug.priority}}</div>
-                    </div>
-                    <div ng-if="bugItemEditModeFlag[$index]" class="uk-form-controls">
-                        <input type="text" class="uk-text panel click-panel" ng-model="bug.priority" name="tracker[selectedPriority]" readonly>
-                        <div class="uk-button-dropdown down-btn" ng-click="toggleList($event, 'priorityType')" data-uk-dropdown="{pos:'bottom-center'}">
-                            <a class="uk-icon-caret-down icon-down"></a>
-                            <div ng-class="{'uk-open': listFlag.priorityType}">
-                                <div class="dropdown-space uk-dropdown uk-dropdown-bottom">
-                                    <ul>
-                                        <li class="item" ng-repeat="priority in priorityList">
-                                            <div ng-click="setPriority($event, priority, bug.id)">{{priority}}</dov>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <a ng-if="warningIcon.priorityType" href="" class="uk-icon-exclamation warning"></a>
                     </div>
                 </div>
             </div>
@@ -116,23 +77,13 @@
                     <div ng-if="!bugItemEditModeFlag[$index]" class="uk-form-controls">
                         <div class="panel info-panel fill-out">{{bug.desc}}</div>
                     </div>
-                    <div ng-if="bugItemEditModeFlag[$index]" class="uk-form-controls">
-                        <textarea class="uk-width-1-1" name="tracker[descc]" ng-focus="warningIcon.desc = false" ng-model="bug.desc"></textarea>
-                        <a ng-if="warningIcon.desc" href="" class="uk-icon-exclamation warning"></a>
-                    </div>
                 </div>
             </div>
         </div>
 
         <div class="uk-form-row uk-position-relative">
-            <i ng-if="userType==='qa'" class="uk-icon-edit uk-icon-small actions" ng-click="updateBug($event, $index)"></i>
-            <i ng-if="userType==='qa'" class="uk-icon-trash-o uk-icon-small actions" ng-click="deleteItem($event, bug.id)"></i>
-            <i ng-if="userType==='rd'" class="uk-icon-eye uk-icon-small actions" ng-class="{'active': bug.owner_id !== ''}" ng-click="updateOwner($event, $index)"></i>
+            <i ng-if="userType==='rd'" class="uk-icon-check-square-o uk-icon-small actions" ng-class="{'active': bug.status === 'Solved'}" ng-click="updateStatus($event, $index)"></i>
         </div>
     </form>
-</div>
-
-<div id="delet-alert" style="display:none;">
-    <div>Do you want to delete this item?</div>
 </div>
 

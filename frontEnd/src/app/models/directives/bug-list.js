@@ -2,8 +2,6 @@ bugTrackerApp.directive('bugList', ['Bug', function (Bug) {
     return {
         restrict: 'E',
         link: function (scope, element) {
-            scope.bugItemEditModeFlag = {};
-            scope.bugListInfo = [];
             scope.listFlag = {
                 'severityType': false,
                 'priorityType': false
@@ -24,28 +22,37 @@ bugTrackerApp.directive('bugList', ['Bug', function (Bug) {
                 'Medium',
                 'Low'
             ];
+            scope.bugItemEditModeFlag = {};
+            scope.bugListInfo = [];
+            scope.selectedSeverity = 'Minor';
+            scope.selectedPriority = 'Medium';
+            scope.userType = tracker.user.type;
 
-            Bug.find().then(function (res) {
-                if (Object.prototype.toString.call(res) === '[object Array]') {
-                    res.map(function (item) {
-                        scope.bugListInfo.push(new Bug(item));
-                    });
-                } else {
-                    scope.bugListInfo.push(new Bug(res));
-                }
-            });
+            if (scope.userType === 'rd') {
+                Bug.findAll().then(function (res) {
+                    initBugListInfo(res);
+                });
+            } else {
+                Bug.find().then(function (res) {
+                    initBugListInfo(res);
+                });
+            }
 
             for (var i = 0; i<scope.bugListInfo.length; i=i+1) {
                 scope.bugItemEditModeFlag[i] = false;
             }
 
-            scope.switchMode = function (evt, index) {
+            scope.updateBug = function (evt, index) {
                 if (evt) evt.stopPropagation();
 
                 scope.bugItemEditModeFlag[index] = !scope.bugItemEditModeFlag[index];
 
                 if (!scope.bugItemEditModeFlag[index]) {
-                    console.log('[U3D] Send to BE');
+                    if (validation()) {
+                        scope.bugListInfo[index].update().then(function (res) {
+                            // Do nothing.
+                        });
+                    }
                 }
             };
 
@@ -56,17 +63,25 @@ bugTrackerApp.directive('bugList', ['Bug', function (Bug) {
                 scope.warningIcon[listName] = false;
             };
 
-            scope.setSeverityType = function (evt, severity) {
+            scope.setSeverityType = function (evt, severity, id) {
                 if (evt) evt.stopPropagation();
 
-                scope.selectedSeverity = severity;
+                scope.bugListInfo.map(function (item) {
+                    if (item.id === id) {
+                        item.severity = severity
+                    }
+                });
                 scope.listFlag.severityType = false;
             };
 
-            scope.setPriority = function (evt, priority) {
+            scope.setPriority = function (evt, priority, id) {
                 if (evt) evt.stopPropagation();
 
-                scope.selectedPriority = priority;
+                scope.bugListInfo.map(function (item) {
+                    if (item.id === id) {
+                        item.priority = priority
+                    }
+                });
                 scope.listFlag.priorityType = false;
             };
 
@@ -82,6 +97,7 @@ bugTrackerApp.directive('bugList', ['Bug', function (Bug) {
                             var data = {
                                 'id': bugId
                             };
+
                             Bug.delete(data).then(function () {
                                 //Remove font-end data.
                                 for (var i=0; i<scope.bugListInfo.length; i++) {
@@ -99,6 +115,46 @@ bugTrackerApp.directive('bugList', ['Bug', function (Bug) {
                 });
             };
 
+            scope.updateOwner = function (evt, index) {
+                if (evt) evt.stopPropagation();
+
+                var data = {
+                    'owner_id': '',
+                    'owner_name': '',
+                    'status': 'Unsolved'
+                };
+
+                if (scope.bugListInfo[index].owner_id === '') {
+                    data.owner_id = tracker.user.id;
+                    data.owner_name = tracker.user.name;
+                    data.status = 'In progress'
+                }
+                scope.bugListInfo[index].updateStatus(data).then(function (res) {
+                    // Do nothing.
+                    scope.bugListInfo[index].owner_id = res.owner_id;
+                    scope.bugListInfo[index].owner_name = res.owner_name;
+                    scope.bugListInfo[index].status = res.status;
+                });
+            };
+
+            function validation () {
+                if (scope.warningIcon.desc &&
+                    scope.warningIcon.summary) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+            function initBugListInfo (res) {
+                if (Object.prototype.toString.call(res) === '[object Array]') {
+                    res.map(function (item) {
+                        scope.bugListInfo.push(new Bug(item));
+                    });
+                } else {
+                    scope.bugListInfo.push(new Bug(res));
+                }
+            }
         },
         templateUrl: 'views/leave/bug-list.html'
     };

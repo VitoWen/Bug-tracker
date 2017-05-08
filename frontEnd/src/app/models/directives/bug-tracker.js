@@ -1,4 +1,4 @@
-bugTrackerApp.directive('bugTracker', [function () {
+bugTrackerApp.directive('bugTracker', ['$state', function ($state) {
     return {
         restrict: 'E',
         link: function (scope, element) {
@@ -17,6 +17,10 @@ bugTrackerApp.directive('bugTracker', [function () {
                     'name': 'My bugs',
                     'type': 'myBugs',
                     'enable': true
+                }, {
+                    'name': 'Logout',
+                    'type': 'logout',
+                    'enable': true
                 }
             ];
             scope.currentActive = 'bugReport';
@@ -25,7 +29,6 @@ bugTrackerApp.directive('bugTracker', [function () {
                 case 'rd':
                     scope.currentActive = 'myBugs';
                     scope.trackerActions[0].enable = false;
-                    scope.trackerActions[1].enable = false;
                 break;
                 case 'qa':
                 case 'pm':
@@ -41,7 +44,11 @@ bugTrackerApp.directive('bugTracker', [function () {
             scope.triggerActions = function (evt, type) {
                 if (evt) evt.stopPropagation();
 
-                scope.currentActive = type;
+                if (type === 'logout') {
+                    $state.go('home');
+                } else {
+                    scope.currentActive = type;
+                }
             };
         },
         templateUrl: 'views/leave/bug-tracker.html'
