@@ -7,6 +7,26 @@ var sugar = require('sugar'),
     userModel = require('../models/userModel.js'),
     user = new userModel();
 
+exports.listAll = function (req, res) {
+    var bugData = {
+            'reporter_id': '',
+            'owner_id': ''
+        },
+        finalRes = {};
+
+    async.series({
+        getBugList: function (cb) {
+            console.log('[U3D] Controllers - bug listAll');
+            bug.bugFind(bugData, function (res) {
+                finalRes = res;
+                cb();
+            });
+        }
+    }, function final() {
+        res.json(finalRes);
+    });
+};
+
 exports.list = function (req, res) {
     var userData = {
             'id': req.params.user_id
@@ -32,7 +52,6 @@ exports.list = function (req, res) {
             console.log('[U3D] Controllers - bug list');
             bug.bugFind(bugData, function (res) {
                 finalRes = res;
-                console.log('[U3D] finalRes:', finalRes);
                 cb();
             });
         }
@@ -88,17 +107,44 @@ exports.delete = function (req, res) {
 
 exports.update = function (req, res) {
     var data = {
-            'name': req.body.name,
-            'pwd': req.body.pwd,
-            'type': req.body.type,
-            'department': req.body.department,
-            'title': req.body.title
+            'id': req.body.id,
+            'severity': req.body.severity,
+            'priority': req.body.priority,
+            'summary': req.body.summary,
+            'desc': req.body.desc,
+            'updated_at': new Date(),
+            'updated_type': 'basicInfo'
         },
         finalRes = {};
 
     async.auto({
-        createUser: function (cb) {
-            bug.bugCreate(data, function (res) {
+        updateBug: function (cb) {
+            bug.bugUpdate(data, function (res) {
+                console.log('[U3D] Controllers - bug update');
+                finalRes = res;
+                cb();
+            });
+        }
+    }, function final() {
+        res.json(finalRes);
+    });
+};
+
+exports.updateStatus = function (req, res) {
+    var data = {
+            'id': req.body.id,
+            'owner_id': req.body.owner_id,
+            'owner_name': req.body.owner_name,
+            'status': req.body.status,
+            'updated_at': new Date(),
+            'updated_type': 'status'
+        },
+        finalRes = {};
+
+    async.auto({
+        updateBugStatus: function (cb) {
+            bug.bugUpdate(data, function (res) {
+                console.log('[U3D] Controllers - bug updateStatus');
                 finalRes = res;
                 cb();
             });

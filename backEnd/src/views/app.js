@@ -22,8 +22,12 @@ router.post('/tracker/user/login', user.login);
 //Bug item
 router.post('/tracker/bug/create', bug.create);
 router.post('/tracker/bug/update', bug.update);
+router.post('/tracker/bug/update/status', bug.updateStatus);
 router.get('/tracker/bug/delete/:id', bug.delete);
+router.get('/tracker/bug/list/all', bug.listAll);
 router.get('/tracker/bug/list/:user_id', bug.list);
+
+
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
