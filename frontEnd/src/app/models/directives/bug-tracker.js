@@ -18,6 +18,10 @@ bugTrackerApp.directive('bugTracker', ['$state', function ($state) {
                     'type': 'myBugs',
                     'enable': true
                 }, {
+                    'name': 'Add user',
+                    'type': 'addUser',
+                    'enable': true
+                }, {
                     'name': 'Logout',
                     'type': 'logout',
                     'enable': true
@@ -29,12 +33,15 @@ bugTrackerApp.directive('bugTracker', ['$state', function ($state) {
                 case 'rd':
                     scope.currentActive = 'myBugs';
                     scope.trackerActions[0].enable = false;
+                    scope.trackerActions[3].enable = false;
                 break;
                 case 'qa':
                 case 'pm':
                     scope.trackerActions[2].enable = false;
+                    scope.trackerActions[3].enable = false;
                 break;
                 case 'admin':
+                    scope.trackerActions[2].enable = false;
                 break;
                 default:
                     //Allow all actions.

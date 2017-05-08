@@ -60,7 +60,6 @@ bugTrackerApp.directive('bugList', ['Bug', function (Bug) {
                 if (evt) evt.stopPropagation();
 
                 scope.listFlag[listName] = !scope.listFlag[listName];
-                scope.warningIcon[listName] = false;
             };
 
             scope.setSeverityType = function (evt, severity, id) {
@@ -138,7 +137,7 @@ bugTrackerApp.directive('bugList', ['Bug', function (Bug) {
             };
 
             function validation () {
-                if (scope.warningIcon.desc &&
+                if (scope.warningIcon.desc ||
                     scope.warningIcon.summary) {
                     return false;
                 } else {

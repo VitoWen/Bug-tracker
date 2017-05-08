@@ -1,0 +1,101 @@
+<form class="uk-form uk-form-horizontal bug-report-space" ng-submit="submit($event)">
+    <div class="uk-form-row">
+        <div class="uk-grid">
+            <div class="uk-width-1-2">
+                <label class="uk-form-label">
+                    <label class="red-start">*</label>
+                    Name:
+                </label>
+                <div class="uk-form-controls">
+                    <input type="text" class="uk-text panel click-panel" ng-model="name" name="userInfo[name]" ng-focus="warningIcon.name = false">
+                    <a ng-if="warningIcon.name" href="" class="uk-icon-exclamation warning"></a>
+                </div>
+            </div>
+            <div class="uk-width-1-2">
+                <label class="uk-form-label">
+                    <label class="red-start">*</label>
+                    Password:
+                </label>
+                <div class="uk-form-controls">
+                    <input type="text" class="uk-text panel click-panel" ng-model="pwd" name="userInfo[pwd]" ng-focus="warningIcon.pwd = false">
+                    <a ng-if="warningIcon.pwd" href="" class="uk-icon-exclamation warning"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-form-row">
+        <div class="uk-grid">
+            <div class="uk-width-1-2">
+                <label class="uk-form-label">Department: </label>
+                <div class="uk-form-controls">
+                    <input type="text" class="uk-text panel click-panel" ng-model="selectedDep" name="userInfo[selectedDep]" readonly>
+                    <div class="uk-button-dropdown down-btn" ng-click="toggleList($event, 'department')" data-uk-dropdown="{pos:'bottom-center'}">
+                        <a class="uk-icon-caret-down icon-down"></a>
+                        <div ng-class="{'uk-open': listFlag.department}">
+                            <div class="dropdown-space uk-dropdown uk-dropdown-bottom">
+                                <ul>
+                                    <li class="item" ng-repeat="department in departmentList">
+                                        <div ng-click="setValue($event, 'department', department)">{{department}}</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="uk-width-1-2">
+                <label class="uk-form-label">Title: </label>
+                <div class="uk-form-controls">
+                    <!-- <div class="panel click-panel"></div> -->
+                    <input type="text" class="uk-text panel click-panel" ng-model="selectedTitle" name="userInfo[selectedTitle]" readonly>
+                    <div class="uk-button-dropdown down-btn" ng-click="toggleList($event, 'title')" data-uk-dropdown="{pos:'bottom-center'}">
+                        <a class="uk-icon-caret-down icon-down"></a>
+                        <div ng-class="{'uk-open': listFlag.title}">
+                            <div class="dropdown-space uk-dropdown uk-dropdown-bottom">
+                                <ul>
+                                    <li class="item" ng-repeat="title in titleList">
+                                        <div ng-click="setValue($event, 'title', title)">{{title}}</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-form-row">
+        <div class="uk-grid">
+            <div class="uk-width-1-2">
+                <label class="uk-form-label">
+                    User type:
+                </label>
+                <div class="uk-form-controls">
+                    <input type="hidden" class="uk-text panel click-panel" ng-model="selectedUserTypeVal" name="userInfo[selectedUserTypeVal]">
+                    <input type="text" class="uk-text panel click-panel" ng-model="selectedUserTypeName" readonly>
+                    <div class="uk-button-dropdown down-btn" ng-click="toggleList($event, 'userType')" data-uk-dropdown="{pos:'bottom-center'}">
+                        <a class="uk-icon-caret-down icon-down"></a>
+                        <div ng-class="{'uk-open': listFlag.userType}">
+                            <div class="dropdown-space uk-dropdown uk-dropdown-bottom">
+                                <ul>
+                                    <li class="item" ng-repeat="type in userTypeList">
+                                        <div ng-click="setValue($event, 'userType', type)">{{type.name}}</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-form-row uk-position-relative">
+        <button class="uk-button uk-position-bottom-left">Submit</button>
+        <div ng-if="submited && createSuccess" class="uk-icon-check"></div>
+        <div ng-if="submited && createFail" class="uk-icon-warning"></div>
+    </div>
+</form>
+

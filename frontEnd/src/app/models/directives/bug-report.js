@@ -40,7 +40,6 @@ bugTrackerApp.directive('bugReport', ['Bug', '$timeout', function (Bug, $timeout
                 if (evt) evt.stopPropagation();
 
                 scope.listFlag[listName] = !scope.listFlag[listName];
-                scope.warningIcon[listName] = false;
             };
 
             scope.setSeverityType = function (evt, severity) {
@@ -58,6 +57,8 @@ bugTrackerApp.directive('bugReport', ['Bug', '$timeout', function (Bug, $timeout
             };
 
             scope.submit = function (evt) {
+                if (evt) evt.stopPropagation();
+
                 var $elem = $((evt.target || evt.srcElement)),
                     params = $elem.serializeJSON({
                         parseAll: false,
@@ -100,7 +101,7 @@ bugTrackerApp.directive('bugReport', ['Bug', '$timeout', function (Bug, $timeout
             };
 
             function validation () {
-                if (scope.warningIcon.desc &&
+                if (scope.warningIcon.desc ||
                     scope.warningIcon.summary) {
                     return false;
                 } else {

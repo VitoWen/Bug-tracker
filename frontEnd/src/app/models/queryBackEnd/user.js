@@ -10,6 +10,12 @@ bugTrackerApp.factory('User', ['$http', 'apiHelper', function ($http, apiHelper)
         return apiHelper.filter($http.post(url, params));
     };
 
+    User.create = function (params) {
+        var url = tracker.apiUrl + '/user/create';
+
+        return apiHelper.filter($http.post(url, params));
+    };
+
     User.prototype.init = function (o) {
         var obj = angular.extend({}, o);
 
