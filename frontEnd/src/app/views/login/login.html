@@ -5,7 +5,7 @@
             <a ng-if="warningIcon.name" href="" class="uk-icon-exclamation warning"></a>
         </div>
         <div class="uk-form-row pwd">
-            <input class="uk-width-1-1 uk-form-large" type="text" placeholder="Password" name="login[pwd]" ng-mousedown="disableWarning()">
+            <input  type="password" class="uk-width-1-1 uk-form-large" type="text" placeholder="Password" name="login[pwd]" ng-mousedown="disableWarning()">
             <a ng-if="warningIcon.pwd" href="" class="uk-icon-exclamation warning"></a>
         </div>
         <div ng-if="loginFail" class="uk-alert uk-alert-danger">Invalid Name/Password</div>
