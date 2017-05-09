@@ -58,7 +58,7 @@ bugTrackerApp.directive('bugTracker', ['$state', function ($state) {
                 }
             };
         },
-        templateUrl: 'views/leave/bug-tracker.html'
+        templateUrl: 'views/tracker/bug-tracker.html'
     };
 }]);
 

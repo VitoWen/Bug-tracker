@@ -138,7 +138,7 @@ bugTrackerApp.directive('addUser', ['User', '$timeout', function (User, $timeout
                 scope.createFail = false;
             }
         },
-        templateUrl: 'views/leave/add-user.html'
+        templateUrl: 'views/tracker/add-user.html'
     };
 }]);
 

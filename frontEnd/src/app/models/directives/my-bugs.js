@@ -50,7 +50,7 @@ bugTrackerApp.directive('myBugs', ['Bug', function (Bug) {
                 }
             }
         },
-        templateUrl: 'views/leave/my-bugs.html'
+        templateUrl: 'views/tracker/my-bugs.html'
     };
 }]);
 

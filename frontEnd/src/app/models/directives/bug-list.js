@@ -155,7 +155,7 @@ bugTrackerApp.directive('bugList', ['Bug', function (Bug) {
                 }
             }
         },
-        templateUrl: 'views/leave/bug-list.html'
+        templateUrl: 'views/tracker/bug-list.html'
     };
 }]);
 

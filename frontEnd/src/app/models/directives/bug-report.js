@@ -119,7 +119,7 @@ bugTrackerApp.directive('bugReport', ['Bug', '$timeout', function (Bug, $timeout
                 scope.createFail = false;
             }
         },
-        templateUrl: 'views/leave/bug-report.html'
+        templateUrl: 'views/tracker/bug-report.html'
     };
 }]);
 
