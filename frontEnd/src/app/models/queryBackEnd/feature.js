@@ -32,7 +32,7 @@ bugTrackerApp.factory('Feature', ['$http', 'apiHelper', function ($http, apiHelp
         var url = tracker.apiUrl + '/feature/update',
             params = {
                 'id': this.id,
-                'purpose': this.summary,
+                'purpose': this.purpose,
                 'desc': this.desc,
             };
 
