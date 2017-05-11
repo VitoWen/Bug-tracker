@@ -1,48 +1,46 @@
-bugTrackerApp.factory('Bug', ['$http', 'apiHelper', function ($http, apiHelper) {
+bugTrackerApp.factory('Feature', ['$http', 'apiHelper', function ($http, apiHelper) {
 
-    function Bug(o) {
+    function Feature(o) {
         if (arguments.length > 0) this.init(o);
     }
 
-    Bug.findAll = function () {
-        var url = tracker.apiUrl + '/bug/list/all';
+    Feature.findAll = function () {
+        var url = tracker.apiUrl + '/feature/list/all';
 
         return apiHelper.filter($http.get(url));
     };
 
-    Bug.find = function () {
-        var url = tracker.apiUrl + '/bug/list/' + tracker.user.id;
+    Feature.find = function () {
+        var url = tracker.apiUrl + '/feature/list/' + tracker.user.id;
 
         return apiHelper.filter($http.get(url));
     };
 
-    Bug.create = function (params) {
-        var url = tracker.apiUrl + '/bug/create';
+    Feature.create = function (params) {
+        var url = tracker.apiUrl + '/feature/create';
 
         return apiHelper.filter($http.post(url, params));
     };
 
-    Bug.delete = function (params) {
-        var url = tracker.apiUrl + '/bug/delete/' + params.id;
+    Feature.delete = function (params) {
+        var url = tracker.apiUrl + '/feature/delete/' + params.id;
 
         return apiHelper.filter($http.get(url, params));
     };
 
-    Bug.prototype.update = function () {
-        var url = tracker.apiUrl + '/bug/update',
+    Feature.prototype.update = function () {
+        var url = tracker.apiUrl + '/feature/update',
             params = {
                 'id': this.id,
-                'severity': this.severity,
-                'priority': this.priority,
-                'summary': this.summary,
+                'purpose': this.summary,
                 'desc': this.desc,
             };
 
         return apiHelper.filter($http.post(url, params));
     };
 
-    Bug.prototype.updateStatus = function (params) {
-        var url = tracker.apiUrl + '/bug/update/status',
+    Feature.prototype.updateStatus = function (params) {
+        var url = tracker.apiUrl + '/feature/update/status',
             oData = {
                 'id': this.id,
                 'owner_id': params.owner_id,
@@ -53,7 +51,7 @@ bugTrackerApp.factory('Bug', ['$http', 'apiHelper', function ($http, apiHelper) 
         return apiHelper.filter($http.post(url, oData));
     };
 
-    Bug.prototype.init = function (o) {
+    Feature.prototype.init = function (o) {
         var obj = angular.extend({}, o);
 
         this.id = obj.id;
@@ -62,13 +60,11 @@ bugTrackerApp.factory('Bug', ['$http', 'apiHelper', function ($http, apiHelper) 
         this.reporter_name = obj.reporter_name;
         this.owner_id = obj.owner_id;
         this.owner_name = obj.owner_name;
-        this.severity = obj.severity;
-        this.priority = obj.priority;
-        this.summary = obj.summary;
+        this.purpose = obj.purpose;
         this.desc = obj.desc;
         this.created_at = obj.created_at;
         this.updated_at = obj.updated_at;
     };
 
-    return Bug;
+    return Feature;
 }]);

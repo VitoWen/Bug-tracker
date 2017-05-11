@@ -1,0 +1,73 @@
+<div ng-repeat="feature in featureListInfo track by $index" class="bug-item-space">
+    <form class="uk-form uk-form-horizontal bug-list-space" ng-submit="submit($event)">
+
+        <div class="uk-form-row">
+            <div class="uk-grid">
+                <div class="uk-width-1-1">
+                    <label class="uk-form-label">
+                        <label ng-if="featureItemEditModeFlag[$index]" class="red-start">*</label>Purpose:
+                    </label>
+                    <div ng-if="!featureItemEditModeFlag[$index]" class="uk-form-controls">
+                        <div class="panel info-panel fill-out">{{feature.purpose}}</div>
+                    </div>
+                    <div ng-if="featureItemEditModeFlag[$index]" class="uk-form-controls">
+                        <textarea class="uk-width-1-1" name="tracker[purpose]" ng-focus="warningIcon.purpose = false" ng-model="feature.purpose"></textarea>
+                        <a ng-if="warningIcon.purpose" href="" class="uk-icon-exclamation warning"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uk-form-row">
+            <div class="uk-grid">
+                <div class="uk-width-1-3">
+                    <label class="uk-form-label">Reporter: </label>
+                    <div class="uk-form-controls">
+                        <div class="panel info-panel">{{feature.reporter_name}}</div>
+                    </div>
+                </div>
+                <div class="uk-width-1-3">
+                    <label class="uk-form-label">Created at: </label>
+                    <div class="uk-form-controls">
+                        <div class="panel info-panel">{{feature.created_at}}</div>
+                    </div>
+                </div>
+                <div class="uk-width-1-3">
+                    <label class="uk-form-label">Updated at: </label>
+                    <div class="uk-form-controls">
+                        <div class="panel info-panel">{{feature.updated_at}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uk-form-row">
+            <div class="uk-grid">
+                <div class="uk-width-1-3">
+                    <label class="uk-form-label">Status: </label>
+                    <div class="uk-form-controls">
+                        <div class="panel info-panel">{{feature.status}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uk-form-row">
+            <div class="uk-grid">
+                <div class="uk-width-1-1">
+                    <label class="uk-form-label">
+                        <label ng-if="featureItemEditModeFlag[$index]" class="red-start">*</label>Description:
+                    </label>
+                    <div ng-if="!featureItemEditModeFlag[$index]" class="uk-form-controls">
+                        <div class="panel info-panel fill-out">{{feature.desc}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="uk-form-row uk-position-relative">
+            <i ng-if="userType==='rd'" class="uk-icon-check-square-o uk-icon-small actions" ng-class="{'active': feature.status === 'Solved'}" ng-click="updateStatus($event, $index)"></i>
+        </div>
+    </form>
+</div>
+

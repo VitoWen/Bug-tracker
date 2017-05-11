@@ -1,19 +1,19 @@
-bugTrackerApp.directive('myBugs', ['Bug', function (Bug) {
+bugTrackerApp.directive('myFeatures', ['Feature', function (Feature) {
     return {
         restrict: 'E',
         link: function (scope, element) {
 
-            scope.bugListInfo = [];
+            scope.featureListInfo = [];
             scope.userType = tracker.user.type;
 
-            Bug.find().then(function (res) {
-                initBugListInfo(res);
+            Feature.find().then(function (res) {
+                initFeatureListInfo(res);
             });
 
             scope.updateStatus = function (evt, index) {
                 if (evt) evt.stopPropagation();
 
-                var status = scope.bugListInfo[index].status,
+                var status = scope.featureListInfo[index].status,
                     data = {
                         'owner_id': tracker.user.id,
                         'owner_name': tracker.user.name,
@@ -26,22 +26,22 @@ bugTrackerApp.directive('myBugs', ['Bug', function (Bug) {
                     data.status = 'In progress';
                 }
 
-                scope.bugListInfo[index].updateStatus(data).then(function (res) {
-                    scope.bugListInfo[index].status = res.status;
+                scope.featureListInfo[index].updateStatus(data).then(function (res) {
+                    scope.featureListInfo[index].status = res.status;
                 });
             };
 
-            function initBugListInfo (res) {
+            function initFeatureListInfo (res) {
                 if (Object.prototype.toString.call(res) === '[object Array]') {
                     res.map(function (item) {
-                        scope.bugListInfo.push(new Bug(item));
+                        scope.featureListInfo.push(new Feature(item));
                     });
                 } else {
-                    scope.bugListInfo.push(new Bug(res));
+                    scope.featureListInfo.push(new Feature(res));
                 }
             }
         },
-        templateUrl: 'views/tracker/my-bugs.html'
+        templateUrl: 'views/tracker/my-features.html'
     };
 }]);
 

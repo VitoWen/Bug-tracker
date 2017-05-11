@@ -1,7 +1,7 @@
 <div class="bug-tracker-space uk-grid">
     <div class="uk-height-1-1 uk-width-2-10">
         <ul class="uk-tab uk-tab-left uk-height-1-1" data-uk-tab>
-            <li ng-repeat="action in trackerActions track by $index" ng-if="action.enable" ng-class="{true: 'uk-active'}[currentActive === action.type]">
+            <li ng-repeat="action in trackerActions track by $index" ng-if="action.allow[userType]" ng-class="{true: 'uk-active'}[currentActive === action.type]">
                 <a ng-click="triggerActions($event, action.type)">{{action.name}}</a>
             </li>
         </ul>
@@ -10,6 +10,9 @@
         <bug-report ng-if="currentActive === 'bugReport'"></bug-report>
         <bug-list ng-if="currentActive === 'bugList'"></bug-list>
         <my-bugs ng-if="currentActive === 'myBugs'"></my-bugs>
+        <feature-create ng-if="currentActive === 'featureCreate'"></feature-create>
+        <feature-list ng-if="currentActive === 'featureList'"></feature-list>
+        <my-features ng-if="currentActive === 'myFeatures'"></my-features>
         <add-user ng-if="currentActive === 'addUser'"></add-user>
     </div>
 </div>

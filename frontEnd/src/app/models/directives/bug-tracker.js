@@ -8,45 +8,54 @@ bugTrackerApp.directive('bugTracker', ['$state', function ($state) {
                 {
                     'name': 'Bug report',
                     'type': 'bugReport',
-                    'enable': true
+                    'allow': {'qa': true, 'admin': true}
                 }, {
                     'name': 'Bug list',
                     'type': 'bugList',
-                    'enable': true
+                    'allow': {'qa': true, 'rd': true, 'admin': true}
                 }, {
                     'name': 'My bugs',
                     'type': 'myBugs',
-                    'enable': true
+                    'allow': {'rd': true}
+                }, {
+                    'name': 'Feature create',
+                    'type': 'featureCreate',
+                    'allow': {'pm': true, 'admin': true}
+                }, {
+                    'name': 'Feature list',
+                    'type': 'featureList',
+                    'allow': {'pm': true, 'rd': true, 'admin': true}
+                }, {
+                    'name': 'My features',
+                    'type': 'myFeatures',
+                    'allow': {'rd': true}
                 }, {
                     'name': 'Add user',
                     'type': 'addUser',
-                    'enable': true
+                    'allow': {'admin': true}
                 }, {
                     'name': 'Logout',
                     'type': 'logout',
-                    'enable': true
+                    'allow': {'qa': true, 'rd': true, 'pm': true, 'admin': true}
                 }
             ];
-            scope.currentActive = 'bugReport';
 
             switch (userType) {
+                case 'qa':
+                    scope.currentActive = 'bugReport';
+                break;
                 case 'rd':
                     scope.currentActive = 'myBugs';
-                    scope.trackerActions[0].enable = false;
-                    scope.trackerActions[3].enable = false;
                 break;
-                case 'qa':
                 case 'pm':
-                    scope.trackerActions[2].enable = false;
-                    scope.trackerActions[3].enable = false;
-                break;
-                case 'admin':
-                    scope.trackerActions[2].enable = false;
+                    scope.currentActive = 'featureCreate';
                 break;
                 default:
-                    //Allow all actions.
+                    scope.currentActive = 'bugReport';
                 break;
+
             }
+            scope.userType = userType;
 
             scope.triggerActions = function (evt, type) {
                 if (evt) evt.stopPropagation();

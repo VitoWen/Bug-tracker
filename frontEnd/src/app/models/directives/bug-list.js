@@ -67,7 +67,7 @@ bugTrackerApp.directive('bugList', ['Bug', function (Bug) {
 
                 scope.bugListInfo.map(function (item) {
                     if (item.id === id) {
-                        item.severity = severity
+                        item.severity = severity;
                     }
                 });
                 scope.listFlag.severityType = false;
@@ -78,7 +78,7 @@ bugTrackerApp.directive('bugList', ['Bug', function (Bug) {
 
                 scope.bugListInfo.map(function (item) {
                     if (item.id === id) {
-                        item.priority = priority
+                        item.priority = priority;
                     }
                 });
                 scope.listFlag.priorityType = false;
@@ -126,7 +126,7 @@ bugTrackerApp.directive('bugList', ['Bug', function (Bug) {
                 if (scope.bugListInfo[index].owner_id === '') {
                     data.owner_id = tracker.user.id;
                     data.owner_name = tracker.user.name;
-                    data.status = 'In progress'
+                    data.status = 'In progress';
                 }
                 scope.bugListInfo[index].updateStatus(data).then(function (res) {
                     // Do nothing.

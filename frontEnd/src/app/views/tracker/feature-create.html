@@ -1,0 +1,65 @@
+<form class="uk-form uk-form-horizontal bug-report-space" ng-submit="submit($event)">
+    <div class="uk-form-row">
+        <div class="uk-grid">
+            <div class="uk-width-1-2">
+                <label class="uk-form-label">Name: </label>
+                <div class="uk-form-controls">
+                    <div class="panel info-panel">{{userInfo.name}}</div>
+                </div>
+            </div>
+            <div class="uk-width-1-2">
+                <label class="uk-form-label">Employee No.: </label>
+                <div class="uk-form-controls">
+                    <div class="panel info-panel">{{userInfo.id}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-form-row">
+        <div class="uk-grid">
+            <div class="uk-width-1-2">
+                <label class="uk-form-label">Department: </label>
+                <div class="uk-form-controls">
+                    <div class="panel info-panel">{{userInfo.department}}</div>
+                </div>
+            </div>
+            <div class="uk-width-1-2">
+                <label class="uk-form-label">Title: </label>
+                <div class="uk-form-controls">
+                    <div class="panel info-panel">{{userInfo.title}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-form-row">
+        <div class="uk-grid">
+            <div class="uk-width-1-2">
+                <label class="uk-form-label">
+                    <label class="red-start">*</label>Purpose:
+                </label>
+                <div class="uk-form-controls">
+                    <textarea class="uk-width-1-1" ng-model="purpose" name="tracker[purpose]" ng-focus="warningIcon.purpose = false"></textarea>
+                    <a ng-if="warningIcon.purpose" href="" class="uk-icon-exclamation warning"></a>
+                </div>
+            </div>
+            <div class="uk-width-1-2">
+                <label class="uk-form-label">
+                    <label class="red-start">*</label>Description:
+                </label>
+                <div class="uk-form-controls">
+                    <textarea class="uk-width-1-1" ng-model="desc" name="tracker[desc]" ng-focus="warningIcon.desc = false"></textarea>
+                    <a ng-if="warningIcon.desc" href="" class="uk-icon-exclamation warning"></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="uk-form-row uk-position-relative">
+        <button class="uk-button uk-position-bottom-left">Submit</button>
+        <div ng-if="submited && createSuccess" class="uk-icon-check"></div>
+        <div ng-if="submited && createFail" class="uk-icon-warning"></div>
+    </div>
+</form>
+

@@ -5,6 +5,7 @@ var express = require('express'),
     mongoose = require('mongoose'),
     user = require('../controllers/user.js'),
     bug = require('../controllers/bug.js'),
+    feature = require('../controllers/feature.js'),
     app = express(),
     router = express.Router(),
     db = mongoose.connect('mongodb://localhost:27017/bugTracker').connection;
@@ -27,6 +28,13 @@ router.get('/tracker/bug/delete/:id', bug.delete);
 router.get('/tracker/bug/list/all', bug.listAll);
 router.get('/tracker/bug/list/:user_id', bug.list);
 
+//Feature item
+router.post('/tracker/feature/create', feature.create);
+router.post('/tracker/feature/update', feature.update);
+router.post('/tracker/feature/update/status', feature.updateStatus);
+router.get('/tracker/feature/delete/:id', feature.delete);
+router.get('/tracker/feature/list/all', feature.listAll);
+router.get('/tracker/feature/list/:user_id', feature.list);
 
 
 app.use(function(req, res, next) {

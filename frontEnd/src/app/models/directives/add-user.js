@@ -36,7 +36,7 @@ bugTrackerApp.directive('addUser', ['User', '$timeout', function (User, $timeout
                     'name': 'Admin',
                     'value': 'admin'
                 }
-            ]
+            ];
             scope.bugItemEditModeFlag = {};
             scope.bugListInfo = [];
             scope.selectedDep = 'R&D';
