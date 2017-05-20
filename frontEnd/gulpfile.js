@@ -89,8 +89,7 @@ gulp.task('libJs',  function () {
             'node_modules/angular-ui-router/release/angular-ui-router.min.js',
             'node_modules/sugar/dist/sugar.min.js',
             'thirdParty/uikit/*.js',
-            'thirdParty/jqueryUI/*.js',
-            'thirdParty/jqueryUITimepicker/*.js',
+            'thirdParty/jqueryUI/*.js'
             ])
         .pipe(concat('lib.js'))
         .pipe(gulp.dest('./dist/js'))
